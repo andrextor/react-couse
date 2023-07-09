@@ -15,7 +15,7 @@ const [turn, setTurn] = useState(() => {
   const turnFromStorage = window.localStorage.getItem('turn')
   return turnFromStorage ?? TURNS.X  
 })
-const [winner, setWinner] = useState(null)// null: no hay ganador, false : hay empate
+const [winner, setWinner] = useState(null)
 
 const resetGame = () => {
   window.localStorage.removeItem('board')
