@@ -15,5 +15,13 @@
   "bugs": {
     "url": "https://github.com/andrextor/react-couse/issues"
   },
-  "homepage": "https://github.com/andrextor/react-couse#readme"
+  "homepage": "https://github.com/andrextor/react-couse#readme",
+  "devDependencies": {
+    "eslint": "^8.44.0",
+    "eslint-plugin-react": "^7.32.2",
+    "standard": "^17.1.0"
+  },
+  "eslintConfig": {
+    "extends": "node_modules/standard/eslintrc.json"
+  }
 }
