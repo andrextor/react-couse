@@ -2,7 +2,7 @@ import { useCatImage } from './hooks/useCarImage'
 import { useCatFact } from './hooks/useCatFact'
 import './App.css'
 
-export function App() {
+export function App () {
   const { fact, refreshFact } = useCatFact()
   const { imageUrl } = useCatImage({ fact })
 
