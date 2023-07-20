@@ -1,16 +1,33 @@
-import successSearch from '../mocks/success_search_avenger.json'
-// import notFoundSearch from '../mocks/not_foun.json'
+import { useRef, useState, useMemo, useCallback } from 'react'
+import { searchMovies } from '../services/movies'
 
-export function UseMovies () {
-  const movies = successSearch.Search
+export function UseMovies ({ search, sort }) {
+  const [movies, setMovies] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+  const previousSearch = useRef(search)
 
-  const mapperMovies = movies.map(movie => ({
-    id: movie.imdbID,
-    title: movie.Title,
-    type: movie.Type,
-    year: movie.Year,
-    image: movie.Poster
-  }))
+  const getMovies = useCallback(async ({ search }) => {
+    if (search === previousSearch.current) return
+    try {
+      setLoading(true)
+      setError(null)
+      previousSearch.current = search
+      const newMovies = await searchMovies({ search })
 
-  return { movies: mapperMovies }
+      setMovies(newMovies)
+      setLoading(false)
+    } catch (error) {
+      setError(error.message)
+    }
+  }, [])
+
+  const sorteMovies = useMemo(() => {
+    console.log('render')
+    return sort
+      ? [...movies].sort((a, b) => a.title.localeCompare(b.title))
+      : movies
+  }, [sort, movies])
+
+  return { movies: sorteMovies, getMovies, loading, error }
 }
